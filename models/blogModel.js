@@ -5,7 +5,6 @@ const blogSchema = new mongoose.Schema({
   id: {
     type: Number,
     unique: true,
-    required: true,
   },
   image: String,
   title: String,
