@@ -2,11 +2,24 @@ const mongoose = require("mongoose");
 
 // Define schema for the blog data
 const blogSchema = new mongoose.Schema({
-  id: Number,
+  id: {
+    type: Number,
+    unique: true,
+    required: true,
+  },
   image: String,
   title: String,
   description: String,
-  date: String,
+  date: {
+    type: String,
+    default: () => {
+      const date = new Date();
+      const day = date.getDate().toString().padStart(2, "0");
+      const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Note: Month is zero-based
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
+    },
+  },
   readingTime: String,
   content: [
     {
