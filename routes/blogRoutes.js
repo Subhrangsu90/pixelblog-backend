@@ -48,7 +48,7 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   try {
-    const updatedBlog = await Blog.findByIdAndUpdate(id, req.body, {
+    const updatedBlog = await Blog.findByIdAndUpdate({ id }, req.body, {
       new: true,
     });
     if (!updatedBlog) {
@@ -68,7 +68,7 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   try {
-    const deletedBlog = await Blog.findByIdAndDelete(id);
+    const deletedBlog = await Blog.findByIdAndDelete({ id });
     if (!deletedBlog) {
       return res.status(404).json({ message: "Blog not found" });
     }
