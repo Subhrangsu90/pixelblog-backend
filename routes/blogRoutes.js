@@ -46,7 +46,7 @@ router.post("/", async (req, res) => {
 
 // UPDATE a blog by ID
 router.put("/:id", async (req, res) => {
-  const id = parseInt(req.params.id);
+  const id = req.params.id;
   try {
     const updatedBlog = await Blog.findByIdAndUpdate({ id }, req.body, {
       new: true,
@@ -66,7 +66,7 @@ router.put("/:id", async (req, res) => {
 
 // DELETE a blog by ID
 router.delete("/:id", async (req, res) => {
-  const id = parseInt(req.params.id);
+  const id = req.params.id;
   try {
     const deletedBlog = await Blog.findByIdAndDelete({ id });
     if (!deletedBlog) {
