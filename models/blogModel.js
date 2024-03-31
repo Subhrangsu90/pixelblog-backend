@@ -1,8 +1,12 @@
 const mongoose = require("mongoose");
-const autoIncrement = require("mongoose-auto-increment");
 
 // Define schema for the blog data
 const blogSchema = new mongoose.Schema({
+  id: {
+    type: Number,
+    unique: true,
+    required: true,
+  },
   image: String,
   title: String,
   description: String,
@@ -26,13 +30,20 @@ const blogSchema = new mongoose.Schema({
   ],
 });
 
-// Plugin for auto-incrementing the id field
-blogSchema.plugin(autoIncrement.plugin, {
-  model: "Blog",
-  field: "id",
-  startAt: 0,
+// Pre-save hook to auto-increment the id field
+blogSchema.pre("save", async function (next) {
+  if (this.isNew) {
+    try {
+      const count = await mongoose.model("Blog").countDocuments();
+      this.id = count; // Set id to the current count
+      next();
+    } catch (error) {
+      next(error);
+    }
+  } else {
+    next();
+  }
 });
-
 // Create Mongoose model based on the schema
 const Blog = mongoose.model("Blog", blogSchema);
 
