@@ -3,7 +3,7 @@ const router = express.Router();
 const Blog = require("../models/blogModel");
 
 // GET all blogs
-router.get("/", async (req, res) => {
+router.get("/getBlogs", async (req, res) => {
   try {
     const blogs = await Blog.find({});
     res.status(200).json({
@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
 });
 
 // GET a single blog by ID
-router.get("/:id", async (req, res) => {
+router.get("/getBlogById/:id", async (req, res) => {
   const id = req.params.id;
   try {
     const blog = await Blog.findOne({ id: parseInt(id) });
