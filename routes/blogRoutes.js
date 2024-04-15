@@ -69,7 +69,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // DELETE a blog by ID
-router.delete("/:id", async (req, res) => {
+router.delete("/delete/:id", async (req, res) => {
 	const id = req.params.id;
 	try {
 		const deletedBlog = await Blog.findOneAndDelete({ id: parseInt(id) });
