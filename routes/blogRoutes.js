@@ -45,7 +45,7 @@ router.post("/postBlog", async (req, res) => {
 });
 
 // UPDATE a blog by ID
-router.put("/:id", async (req, res) => {
+router.put("/update/:id", async (req, res) => {
 	const id = req.params.id;
 	try {
 		const updatedBlog = await Blog.findOneAndUpdate(
