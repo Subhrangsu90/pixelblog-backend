@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const blogRoutes = require("./routes/blogRoutes");
+const authRoutes = require("./routes/authRoutes");
+// const config = require("./config");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,6 +22,7 @@ mongoose
 		console.error("Error connecting to MongoDB:", err.message);
 	});
 
+// console.log("KEY:: ", config.JWT_SECRET);
 // Enable CORS for all requests
 app.use(cors());
 
@@ -33,6 +36,7 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/api/blogs", blogRoutes);
 
+app.use("/api/auth", authRoutes);
 // Start the server
 app.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`);

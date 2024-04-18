@@ -57,14 +57,19 @@ router.post("/login", async (req, res) => {
 			return res.status(401).json({ message: "Invalid credentials" });
 		}
 
+		// Check user role
+		if (user.role !== "admin" && user.role !== "user") {
+			return res.status(403).json({ message: "Invalid role" });
+		}
+
 		// Generate token
 		const token = jwt.sign(
-			{ userId: user._id, email: user.email },
+			{ userId: user._id, email: user.email, role: user.role },
 			process.env.JWT_SECRET,
 			{ expiresIn: "1h" }
 		);
 
-		res.status(200).json({ token });
+		res.status(200).json({ message: "Login successful", token });
 	} catch (error) {
 		console.error("Error logging in:", error);
 		res.status(500).json({ message: "Internal server error" });
